@@ -2,23 +2,15 @@
 
 
 
-// development:
-// @use "node_modules/@heymarco/sass-class-template/index" as *;
-// @use "node_modules/@heymarco/sass-selector/index"       as selector;
+@use "~@nodestrap/sass-class-template/src/index" as *;
+@use "~@nodestrap/sass-selector/src/index"       as selector;
 
-// production:
-@use "../../../node_modules/@heymarco/sass-class-template/index" as *;
-@use "../../../node_modules/@heymarco/sass-selector/index"       as selector;
+@use    "base"                                   as base;
+@use    "common"                                 as *;
+@use    "font-material-codepoints"               as material;
 
-
-
-@use    "base"         as base;
-@use    "font-material-codepoints"  as material;
-
-
-@use    "common"       as *;
-@use    "sass:string"  as string;
-@use    "sass:map"     as map;
+@use    "sass:string"                            as string;
+@use    "sass:map"                               as map;
 
 
 
@@ -33,7 +25,7 @@ $cssvar: make-cssvar($var-prefix, $var-prefix-base);
 // $path           : "./fonts/"                                !default;
 
 // production:
-$path           : "./node_modules/@heymarco/icon/fonts/"    !default;
+$path           : "./node_modules/@nodestrap/icon/dist/fonts/"  !default;
 
 $files          : (
     "MaterialIcons-Regular.woff2",

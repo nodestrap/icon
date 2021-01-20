@@ -2,22 +2,14 @@
 
 
 
-// development:
-// @use "node_modules/@heymarco/sass-class-template/index" as *;
-// @use "node_modules/@heymarco/sass-selector/index"       as selector;
+@use "~@nodestrap/sass-class-template/src/index" as *;
+@use "~@nodestrap/sass-selector/src/index"       as selector;
 
-// production:
-@use "../../../node_modules/@heymarco/sass-class-template/index" as *;
-@use "../../../node_modules/@heymarco/sass-selector/index"       as selector;
+@use    "base"                                   as base;
+@use    "common"                                 as *;
 
-
-
-@use    "base"         as base;
-
-
-@use    "common"       as *;
-@use    "sass:string"  as string;
-@use    "sass:map"     as map;
+@use    "sass:string"                            as string;
+@use    "sass:map"                               as map;
 
 
 
@@ -32,7 +24,7 @@ $cssvar: make-cssvar($var-prefix, $var-prefix-base);
 // $path           : "./icons/"                                !default;
 
 // production:
-$path           : "./node_modules/@heymarco/icon/icons/"    !default;
+$path           : "./node_modules/@nodestrap/icon/dist/icons/"  !default;
 
 $items          : (
  /* filename    | ratio */

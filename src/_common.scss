@@ -1,8 +1,4 @@
-// development:
-// @use "node_modules/@heymarco/colors/index"              as color;
-
-// production:
-@use "../../../node_modules/@heymarco/colors/index"              as color;
+@use "~@nodestrap/colors/src/index"              as color;
 
 
 
