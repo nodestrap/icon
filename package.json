@@ -1,13 +1,40 @@
 {
-  "name": "@heymarco/icon",
-  "version": "1.0.10",
+  "name": "@nodestrap/icon",
+  "version": "0.0.0",
   "description": "Provides a common icon set for html page using \"image based icon\" and fallback using \"font based icon\" (Google's Material Icons -or- Font Awesome).",
+  "dependencies": {
+    "@nodestrap/colors": "^2.0.0",
+    "@nodestrap/sass-class-template": "^2.0.0",
+    "@nodestrap/sass-string": "^2.0.0",
+    "react": "^17.0.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.3",
+    "@testing-library/user-event": "^12.6.0",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.22",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "react-dom": "^17.0.1",
+    "react-scripts": "^4.0.1",
+    "tilde-sass": "^1.0.0",
+    "typescript": "^4.1.3"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "react-scripts test",
+    "testsass": "tilde-sass --file src/*.scss --outFile test/",
+    "compile": "tilde-sass --file src/*.scss --outFile dist/ --outputStyle compressed"
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\](?!@nodestrap[/\\\\].+[/\\\\](dist|src)[/\\\\](.+[/\\\\])*).+[.](js|mjs|jsx|ts|tsx|cjs)$",
+      "^.+[.]module[.](css|sass|scss)$"
+    ]
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/heyymarco/icon.git"
+    "url": "git+https://github.com/nodestrap/icon.git"
   },
   "keywords": [
     "icon",
@@ -15,18 +42,15 @@
     "image",
     "svg",
     "font",
-    "font awesome",
-    "google materials"
+    "font",
+    "awesome",
+    "google",
+    "materials"
   ],
-  "author": "HeyMarco",
+  "author": "nodestrap, heymarco",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/heyymarco/icon/issues"
+    "url": "https://github.com/nodestrap/icon/issues"
   },
-  "homepage": "https://github.com/heyymarco/icon#readme",
-  "dependencies": {
-    "@heymarco/colors": "^1.0.15",
-    "@heymarco/sass-class-template": "^1.0.6",
-    "@heymarco/sass-string": "^1.0.1"
-  }
+  "homepage": "https://github.com/nodestrap/icon#readme"
 }
