@@ -16,7 +16,7 @@ export interface VariantTheme extends Base_VariantTheme { }
 
 
 export interface Props extends Base_Props, VariantSize, VariantTheme {
-    content : string;
+    icon : string;
 }
 
 export interface State extends Base_State {
@@ -35,8 +35,8 @@ export default class Icon<TProps extends Props = Props, TState extends State = S
             // custom class(es):
             this.className,
 
-            // content:
-            (props.content || ' '),
+            // icon:
+            (props.icon || ' '),
 
             // variants:
             (props.theme   || ' '),

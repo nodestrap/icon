@@ -4,9 +4,9 @@ import ComponentTest from './index';
 
 
 test('render test-1 of the component', () => {
-    render(<ComponentTest content="whatsapp" />);
+    render(<ComponentTest icon="whatsapp" />);
 });
 
 test('render test-2 of the component', () => {
-    render(<ComponentTest content="eldenery" />);
+    render(<ComponentTest icon="eldenery" />);
 });
