@@ -267,4 +267,4 @@ $_extend-counter-group-font: 1;
 
 
 
-@include class($alias, base.$class, "");
+@include class($alias, base.$class);

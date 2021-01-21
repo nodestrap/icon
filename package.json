@@ -1,10 +1,10 @@
 {
   "name": "@nodestrap/icon",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Provides a common icon set for html page using \"image based icon\" and fallback using \"font based icon\" (Google's Material Icons -or- Font Awesome).",
   "dependencies": {
     "@nodestrap/colors": "^2.0.1",
-    "@nodestrap/element": "^2.0.21",
+    "@nodestrap/element": "^2.0.23",
     "@nodestrap/sass-class-template": "^2.0.2",
     "@nodestrap/sass-selector": "^2.0.1",
     "@nodestrap/sass-string": "^2.0.5",
@@ -14,7 +14,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
-    "@testing-library/user-event": "^12.6.0",
+    "@testing-library/user-event": "^12.6.2",
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.22",
     "@types/react": "^17.0.0",

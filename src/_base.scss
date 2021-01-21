@@ -83,4 +83,4 @@ $cssvar: make-cssvar($var-prefix, $var-prefix-base);
 
 
 // abstract class => no emit class
-// @include class($alias, $class, "");
+// @include class($alias, $class);
