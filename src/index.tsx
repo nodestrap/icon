@@ -23,12 +23,6 @@ export interface State extends Base_State {
 }
 
 export default class Icon<TProps extends Props = Props, TState extends State = State> extends Base<TProps, TState> {
-    constructor(props: TProps) {
-        super(props);
-    }
-
-
-
     /*override*/ get defaultClassName(): string {
         return 'icon';
     }

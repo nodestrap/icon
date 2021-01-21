@@ -4,6 +4,9 @@
 
 @use "~@nodestrap/sass-class-template/src/index" as *;
 @use "~@nodestrap/sass-selector/src/index"       as selector;
+@use "~@nodestrap/element/src/index"             as base;
+@use "~@nodestrap/typography/src/index"          as typo;
+@use "~@nodestrap/colors/src/index"              as color;
 
 
 
@@ -14,47 +17,64 @@ $var-prefix         : "icon"                                !default;
 $var-prefix-base    : ""                                    !default;
 $cssvar: make-cssvar($var-prefix, $var-prefix-base);
 
-$display            : inline-block                          !default;
-$vertical-align     : middle                                !default;
+/*base*/$color              : var(#{typo.$cssvar}color)             !default;
 
-$color              : currentColor                          !default;
+/*addn*/$display            : inline-block                          !default;
+/*addn*/$vertical-align     : middle                                !default;
 
-$size               : var(#{$cssvar}size-default)           !default;
-$size-default       : var(#{$cssvar}size-nm)                !default;
-$size-sm            : 18px                                  !default;
-$size-nm            : 24px                                  !default;
-$size-md            : 36px                                  !default;
-$size-lg            : 48px                                  !default;
+/*addn*/$size               : var(#{$cssvar}size-default)           !default;
+/*addn*/$size-default       : var(#{$cssvar}size-nm)                !default;
+/*addn*/$size-sm            : 18px                                  !default;
+/*addn*/$size-nm            : 24px                                  !default;
+/*addn*/$size-md            : 36px                                  !default;
+/*addn*/$size-lg            : 48px                                  !default;
 
 
 
 @include declare-cssvar($var-root) {
-    #{$cssvar}color             : #{$color};
+    /*base*/#{$cssvar}color             : $color;
 
-    #{$cssvar}size              : #{$size};
-    #{$cssvar}size-default      : #{$size-default};
-    #{$cssvar}size-sm           : #{$size-sm};
-    #{$cssvar}size-nm           : #{$size-nm};
-    #{$cssvar}size-md           : #{$size-md};
-    #{$cssvar}size-lg           : #{$size-lg};
+    /*addn*/#{$cssvar}size              : #{$size};
+    /*addn*/#{$cssvar}size-default      : #{$size-default};
+    /*addn*/#{$cssvar}size-sm           : #{$size-sm};
+    /*addn*/#{$cssvar}size-nm           : #{$size-nm};
+    /*addn*/#{$cssvar}size-md           : #{$size-md};
+    /*addn*/#{$cssvar}size-lg           : #{$size-lg};
+
+
+
+    // variant-theme: color:
+    @each $theme-name, $theme-color in color.$themes {
+        // color:
+        /*base*/#{$cssvar}color-#{$theme-name}  : var(#{base.$cssvar}backg-#{$theme-name});
+    }
 }
 
 
 
 /* begin: general style */
-@mixin _style($include) {
+@mixin _style($include, $cssvar: $cssvar) {
     display                     : $display;
     vertical-align              : $vertical-align;
 
 
-    /* begin: variant-size */
-    @each $size in (sm, nm, md, lg) { @include selector.append("." + $size) {
+
+    /* begin: variant-size: (icon) size */
+    @each $size in (sm, nm, md, lg) { @include variant-of($alias, $size) {
         #{$cssvar}size: var(#{$cssvar}size-#{$size});
     }}
-    /* end: variant-size */
+    /* end: variant-size: (icon) size */
+
+
+
+    /* begin: variant-theme: box-shadow-focus */
+    @each $theme-name, $theme-color in color.$themes { @include variant-of($alias, $theme-name) {
+        #{$cssvar}color: var(#{$cssvar}color-#{$theme-name});
+    }}
+    /* end: variant-theme: box-shadow-focus */
 }
-@mixin style {
-    @include _style(true);
+@mixin style($cssvar: $cssvar) {
+    @include _style(true, $cssvar);
 }
 @include alias($alias) {
     @include _style(false);

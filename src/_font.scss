@@ -22,10 +22,10 @@ $var-prefix-base    : base.$var-prefix                      !default;
 $cssvar: make-cssvar($var-prefix, $var-prefix-base);
 
 // development:
-// $path           : "./fonts/"                                !default;
+// $path           : "./dist/fonts/"                           !default;
 
 // production:
-$path           : "./node_modules/@nodestrap/icon/dist/fonts/"  !default;
+$path           : "~@nodestrap/icon/dist/fonts/"            !default;
 
 $files          : (
     "MaterialIcons-Regular.woff2",
@@ -143,7 +143,13 @@ $items-n: ();
     font-size       : var(#{base.$cssvar}size);
     overflow-y      : hidden;
 
+    background      : transparent;
     color           : var(#{base.$cssvar}color);
+
+
+    @include selector.append("::before") {
+        content     : var(#{$cssvar}content);
+    }
 
 
     font-family     : $family;
