@@ -225,8 +225,8 @@ $_extend-counter-group-font: 1;
 
 
 /* begin: basic (--) style */
-@mixin _style-basic($include) {
-    @if ($include) { @include  base.style; }
+@mixin _style-basic($include, $includeVariants: true) {
+    @if ($include) { @include  base.style($includeVariants: $includeVariants); }
     @else          { @extend #{base.$alias} !optional; }
 
 
@@ -244,8 +244,8 @@ $_extend-counter-group-font: 1;
         }
     }
 }
-@mixin style-basic {
-    @include _style-basic(true);
+@mixin style-basic($includeVariants: true) {
+    @include _style-basic(true, $includeVariants: $includeVariants);
 }
 @include alias-basic($alias) {
     @include _style-basic(false);
