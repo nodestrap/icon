@@ -1,6 +1,6 @@
 {
   "name": "@nodestrap/icon",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Provides a common icon set for html page using \"image based icon\" and fallback using \"font based icon\" (Google's Material Icons -or- Font Awesome).",
   "dependencies": {
     "@nodestrap/colors": "^2.0.1",

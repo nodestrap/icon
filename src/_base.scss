@@ -53,30 +53,28 @@ $cssvar: make-cssvar($var-prefix, $var-prefix-base);
 
 
 /* begin: general style */
-@mixin _style($include, $cssvar: $cssvar, $includeVariants: true) {
+@mixin _style($include, $cssvar: $cssvar) {
     display                     : $display;
     vertical-align              : $vertical-align;
 
 
 
-    @if ($includeVariants) {
-        /* begin: variant-size: (icon) size */
-        @each $size in (sm, nm, md, lg) { @include variant-of($alias, $size) {
-            #{$cssvar}size: var(#{$cssvar}size-#{$size});
-        }}
-        /* end: variant-size: (icon) size */
+    /* begin: variant-size: (icon) size */
+    @each $size in (sm, nm, md, lg) { @include variant-of($alias, $size) {
+        #{$cssvar}size: var(#{$cssvar}size-#{$size});
+    }}
+    /* end: variant-size: (icon) size */
 
 
 
-        /* begin: variant-theme: box-shadow-focus */
-        @each $theme-name, $theme-color in color.$themes { @include variant-of($alias, $theme-name) {
-            #{$cssvar}color: var(#{$cssvar}color-#{$theme-name});
-        }}
-        /* end: variant-theme: box-shadow-focus */
-    }
+    /* begin: variant-theme: color */
+    @each $theme-name, $theme-color in color.$themes { @include variant-of($alias, $theme-name) {
+        #{$cssvar}color: var(#{$cssvar}color-#{$theme-name});
+    }}
+    /* end: variant-theme: color */
 }
-@mixin style($cssvar: $cssvar, $includeVariants: true) {
-    @include _style(true, $cssvar: $cssvar, $includeVariants: $includeVariants);
+@mixin style($cssvar: $cssvar) {
+    @include _style(true, $cssvar);
 }
 @include alias($alias) {
     @include _style(false);
