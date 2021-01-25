@@ -107,7 +107,7 @@ $items-n: ();
     height                  :      var(#{base.$cssvar}size);
     width                   : calc(var(#{base.$cssvar}size) * var(#{$cssvar}ratio));
     
-    background              : var(#{base.$cssvar}color);
+    background              : var(#{base.$cssvar}color) !important; // !important => make style win against font-icon { background: transparent; }
     
     
     mask-image              : var(#{string.slice($cssvar, 1, -2)});
