@@ -30,6 +30,30 @@ Using npm:
 ```
 npm i @nodestrap/icon
 ```
+Then copy folder `fonts` & `icons` from our `@nodestrap/icon/public` to your public folder, let's say `/shared`, so it becomes:
+* /shared/fonts/**
+* /shared/icons/**
+
+Then add your custom icons (*.svg or *.png) into `/shared/icons/`
+
+Then add code below after the `import` statements:
+```js
+import { Icon, config as iconConfig } from '@nodestrap/icon';
+
+// path relative to *browser*, not physical path on *server*
+iconConfig.font.path = '/shared/fonts';
+iconConfig.img.path = '/shared/icons';
+iconConfig.img.files.push(
+	'my-logo.svg', // your custom logo
+	'phone.png',   // your custom phone icon
+	// ... add more ...
+);
+```
+
+And finally you can use your icons:
+```jsx
+<Icon icon='my-logo' theme='primary' size='lg' />
+```
 
 ## Support Us
 
