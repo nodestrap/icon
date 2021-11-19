@@ -217,6 +217,8 @@ export const usesIconColor = () => {
  */
 export const concatUrl = (base, target) => {
     const dummyUrl = new URL('http://dummy');
+    if (!base.endsWith('/') || !base.endsWith('\\'))
+        base += '/';
     const baseUrl = new URL(base, dummyUrl);
     const targetUrl = new URL(target, baseUrl);
     const result = targetUrl.href;
@@ -473,13 +475,13 @@ export const [cssProps, cssDecls, cssVals, cssConfig] = createCssConfig(() => {
         transition: bcssProps.transition,
     };
 }, { prefix: 'ico' });
-const config = {
+export const config = {
     font: {
         /**
          * A `url directory` pointing to the collection of the icon's fonts.
          * It's the `front-end url`, not the physical path on the server.
          */
-        path: '/fonts/',
+        path: '/fonts',
         /**
          * A list of icon's fonts with extensions.
          * The order does matter. Place the most preferred file on the first.
@@ -510,7 +512,7 @@ const config = {
          * A `url directory` pointing to the collection of the icon's images.
          * It's the `front-end url`, not the physical path on the server.
          */
-        path: '/icons/',
+        path: '/icons',
         /**
          * A list of icon's images with extensions.
          * The order doesn't matter, but if there are any files with the same name but different extensions, the first one will be used.

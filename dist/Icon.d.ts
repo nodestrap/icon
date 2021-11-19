@@ -132,7 +132,42 @@ export declare const cssProps: import("@cssfn/css-config").Refs<{
     foreg: string;
     sizeNm: string;
 }>, cssConfig: import("@cssfn/css-config").CssConfigSettings;
-export declare type IconList = ((typeof fontItems)[number]) | (string & {});
+export declare const config: {
+    font: {
+        /**
+         * A `url directory` pointing to the collection of the icon's fonts.
+         * It's the `front-end url`, not the physical path on the server.
+         */
+        path: string;
+        /**
+         * A list of icon's fonts with extensions.
+         * The order does matter. Place the most preferred file on the first.
+         */
+        files: string[];
+        /**
+         * A list of valid icon-font's content.
+         */
+        items: string[];
+        /**
+         * The css style of icon-font to be loaded.
+         */
+        style: StyleCollection;
+    };
+    img: {
+        /**
+         * A `url directory` pointing to the collection of the icon's images.
+         * It's the `front-end url`, not the physical path on the server.
+         */
+        path: string;
+        /**
+         * A list of icon's images with extensions.
+         * The order doesn't matter, but if there are any files with the same name but different extensions, the first one will be used.
+         */
+        files: string[];
+    };
+};
+declare type CustomIconList = 'instagram' | 'whatsapp' | 'close' | 'busy' | 'prev' | 'next' | 'dropdown' | 'dropright' | 'dropleft';
+export declare type IconList = CustomIconList | ((typeof fontItems)[number]) | (string & {});
 export interface IconProps<TElement extends HTMLElement = HTMLElement> extends ElementProps<TElement>, SizeVariant, ThemeVariant, MildVariant {
     icon: IconList;
 }
