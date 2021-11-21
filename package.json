@@ -1,6 +1,6 @@
 {
   "name": "@nodestrap/icon",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "An icon component for React.",
   "type": "module",
   "main": "dist/Icon.jsx",
@@ -32,7 +32,7 @@
     "@cssfn/cssfn": "^1.0.3",
     "@cssfn/react-cssfn": "^1.0.3",
     "@cssfn/types": "^1.0.3",
-    "@nodestrap/basic": "^4.0.1",
+    "@nodestrap/basic": "^4.0.2",
     "@nodestrap/element": "^4.0.1",
     "@nodestrap/layouts": "^4.0.1",
     "@types/react": "^17.0.35",

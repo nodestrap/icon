@@ -95,7 +95,7 @@ export declare const usesIconFontLayout: (img?: Cust.Ref | undefined) => StyleCo
 export declare const usesIconImageLayout: (img?: Cust.Ref | undefined) => StyleCollection;
 export declare const usesIconVariants: () => StyleCollection;
 export declare const usesIconImage: (img: Cust.Ref, foregOverwrite?: Cust.Ref | undefined, sizeOverwrite?: Cust.Ref | undefined) => StyleCollection;
-export declare const usesIcon: () => StyleCollection;
+export declare const useIconSheet: Factory<import("jss").Classes<"main">>;
 export declare const useIcon: <TElement extends HTMLElement = HTMLElement>(props: IconProps<TElement>) => {
     class: string | null;
     style: {
@@ -103,7 +103,6 @@ export declare const useIcon: <TElement extends HTMLElement = HTMLElement>(props
     };
     children: React.ReactNode;
 };
-export declare const useIconSheet: Factory<import("jss").Classes<"main">>;
 export declare const cssProps: import("@cssfn/css-config").Refs<{
     size: string;
     sizeSm: (string | number)[][];
