@@ -4,7 +4,7 @@ import type { Cust } from '@cssfn/css-types';
 import { StyleCollection } from '@cssfn/cssfn';
 import { ElementProps } from '@nodestrap/element';
 import { ThemeName, ThemeVariant, MildVariant } from '@nodestrap/basic';
-import fontItems from './Icon-font-material';
+import fontItems from './Icon-font-material.js';
 export declare type SizeName = 'sm' | 'nm' | 'md' | 'lg' | '1em' | (string & {});
 export declare const isSize: (sizeName: SizeName, styles: StyleCollection) => import("@cssfn/cssfn").RuleEntry;
 /**

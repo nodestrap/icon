@@ -95,7 +95,7 @@ import {
     // configs:
     cssProps as bcssProps,
 }                           from '@nodestrap/basic'
-import fontItems            from './Icon-font-material'
+import fontItems            from './Icon-font-material.js'
 
 
 

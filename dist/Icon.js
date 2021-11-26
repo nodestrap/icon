@@ -25,7 +25,7 @@ import {
 isSize as basicIsSize, usesSizeVariant as basicUsesSizeVariant, useSizeVariant as basicUseSizeVariant, usesThemeVariant as basicUsesThemeVariant, useThemeVariant, usesOutlinedVariant, notMild, isMild, usesMildVariant as basicUsesMildVariant, useMildVariant, usesForeg as basicUsesForeg, 
 // configs:
 cssProps as bcssProps, } from '@nodestrap/basic';
-import fontItems from './Icon-font-material';
+import fontItems from './Icon-font-material.js';
 export const isSize = (sizeName, styles) => basicIsSize(sizeName, styles);
 /**
  * Uses basic sizes.
