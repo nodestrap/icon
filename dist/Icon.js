@@ -446,7 +446,7 @@ export const useIcon = (props) => {
                 })(),
             },
             children: [
-                (iconImg && (<img key='ico-img' src={iconImg} alt=''/>)),
+                (iconImg && (React.createElement("img", { key: 'ico-img', src: iconImg, alt: '' }))),
             ].filter((child) => !!child),
         };
     }, [props.icon]);
@@ -533,27 +533,24 @@ export function Icon(props) {
     // appearances:
     const icon = useIcon(props);
     // jsx:
-    return (<Element 
-    // other props:
-    {...props} 
-    // semantics:
-    tag={props.tag ?? 'span'} 
-    // classes:
-    mainClass={props.mainClass ?? sheet.main} variantClasses={[...(props.variantClasses ?? []),
+    return (React.createElement(Element, { ...props, 
+        // semantics:
+        tag: props.tag ?? 'span', 
+        // classes:
+        mainClass: props.mainClass ?? sheet.main, variantClasses: [...(props.variantClasses ?? []),
             sizeVariant.class,
             themeVariant.class,
             mildVariant.class,
-        ]} classes={[...(props.classes ?? []),
+        ], classes: [...(props.classes ?? []),
             // appearances:
             icon.class,
-        ]} 
-    // styles:
-    style={{ ...(props.style ?? {}),
+        ], 
+        // styles:
+        style: { ...(props.style ?? {}),
             // appearances:
             ...icon.style,
-        }}>
-            {icon.children}
-            {props.children}
-        </Element>);
+        } },
+        icon.children,
+        props.children));
 }
 export { Icon as default };
