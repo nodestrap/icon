@@ -245,8 +245,7 @@ export const formatOf = (fileName) => {
     } // if
     return null;
 };
-const [iconRefs, iconDecls] = createCssVar();
-const iconDecls_img_cache = iconDecls.img;
+const [iconRefs, iconDecls] = createCssVar({ minify: false }); // do not minify to make sure `style={{ --img: ... }}` is the same between in server (without `useIconSheet` rendered) & client (with `useIconSheet` rendered)
 export const usesIconLayout = () => {
     // dependencies:
     // colors:
@@ -438,7 +437,7 @@ export const useIcon = (props) => {
             })(),
             style: {
                 // appearances:
-                [iconDecls_img_cache]: (() => {
+                [iconDecls.img]: (() => {
                     if (iconImg)
                         return `url("${iconImg}")`; // the url of the icon's image
                     if (isIconFont)
