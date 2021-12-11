@@ -246,6 +246,7 @@ export const formatOf = (fileName) => {
     return null;
 };
 const [iconRefs, iconDecls] = createCssVar();
+const iconDecls_img_cache = iconDecls.img;
 export const usesIconLayout = () => {
     // dependencies:
     // colors:
@@ -437,7 +438,7 @@ export const useIcon = (props) => {
             })(),
             style: {
                 // appearances:
-                [iconDecls.img]: (() => {
+                [iconDecls_img_cache]: (() => {
                     if (iconImg)
                         return `url("${iconImg}")`; // the url of the icon's image
                     if (isIconFont)
