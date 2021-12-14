@@ -417,7 +417,7 @@ export const useIconSheet = createUseSheet(() => [
             ]),
         ]),
     ]),
-]);
+], /*sheetId :*/ 'oqfct2z8qv'); // an unique salt for SSR support, ensures the server-side & client-side have the same generated class names
 export const useIcon = (props) => {
     return useMemo(() => {
         const iconImg = (() => {
