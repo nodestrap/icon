@@ -2,11 +2,13 @@
 import { default as React, useMemo, } from 'react'; // base technology of our nodestrap components
 import { 
 // compositions:
-composition, mainComposition, imports, 
-// layouts:
-layout, vars, children, 
+mainComposition, 
+// styles:
+style, vars, imports, 
 // rules:
-rules, variants, rule, fontFace, } from '@cssfn/cssfn'; // cssfn core
+rule, variants, fontFace, 
+//combinators:
+children, } from '@cssfn/cssfn'; // cssfn core
 import { 
 // hooks:
 createUseSheet, } from '@cssfn/react-cssfn'; // cssfn for react
@@ -32,17 +34,17 @@ export const isSize = (sizeName, styles) => basicIsSize(sizeName, styles);
  * For example: `sm`, `lg`.
  * @param factory Customize the callback to create sizing definitions for each size in `options`.
  * @param options Customize the size options.
- * @returns A `[Factory<StyleCollection>, ReadonlyRefs, ReadonlyDecls]` represents sizing definitions for each size in `options`.
+ * @returns A `[Factory<Rule>, ReadonlyRefs, ReadonlyDecls]` represents sizing definitions for each size in `options`.
  */
 export const usesSizeVariant = (sizeOverwrite, factory = sizeOf, options = sizeOptions()) => {
     // dependencies:
     const [sizes, sizeRefs, sizeDecls, ...restSizes] = basicUsesSizeVariant(factory, options);
     return [
-        () => sizeOverwrite ? composition([
-            vars({
+        () => sizeOverwrite ? style({
+            ...vars({
                 [cssDecls.size]: ((sizeOverwrite !== cssProps.size) ? sizeOverwrite : null),
             }),
-        ]) : sizes(),
+        }) : sizes(),
         sizeRefs,
         sizeDecls,
         ...restSizes,
@@ -51,14 +53,12 @@ export const usesSizeVariant = (sizeOverwrite, factory = sizeOf, options = sizeO
 /**
  * Creates sizing definitions for the given `sizeName`.
  * @param sizeName The given size name written in camel case.
- * @returns A `StyleCollection` represents sizing definitions for the given `sizeName`.
+ * @returns A `Rule` represents sizing definitions for the given `sizeName`.
  */
-export const sizeOf = (sizeName) => composition([
-    layout({
-        // overwrites propName = propName{SizeName}:
-        ...overwriteProps(cssDecls, usesSuffixedProps(cssProps, sizeName)),
-    }),
-]);
+export const sizeOf = (sizeName) => style({
+    // overwrites propName = propName{SizeName}:
+    ...overwriteProps(cssDecls, usesSuffixedProps(cssProps, sizeName)),
+});
 /**
  * Gets the all available size options.
  * @returns A `SizeName[]` represents the all available size options.
@@ -73,17 +73,17 @@ export const useSizeVariant = (props) => basicUseSizeVariant(props);
  * For example: `primary`, `secondary`, `danger`, `success`, etc.
  * @param factory Customize the callback to create color definitions for each color in `options`.
  * @param options Customize the color options.
- * @returns A `[Factory<StyleCollection>, ReadonlyRefs, ReadonlyDecls]` represents color definitions for each color in `options`.
+ * @returns A `[Factory<Rule>, ReadonlyRefs, ReadonlyDecls]` represents color definitions for each color in `options`.
  */
 export const usesThemeVariant = (factory, options) => {
     // dependencies:
     const [themes, themeRefs, themeDecls, ...restThemes] = basicUsesThemeVariant(factory, options);
     return [
-        () => composition([
-            imports([
+        () => style({
+            ...imports([
                 themes(),
             ]),
-            vars({
+            ...vars({
                 // delete unused imported vars:
                 [themeDecls.foreg]: null,
                 [themeDecls.border]: null,
@@ -91,12 +91,12 @@ export const usesThemeVariant = (factory, options) => {
                 [themeDecls.foregMild]: null,
                 [themeDecls.focus]: null,
             }),
-            vars({
+            ...vars({
                 // prevent theme from inheritance, so the Icon always use currentColor if the theme is not set
                 [themeDecls.backg]: 'initial',
                 [themeDecls.backgMild]: 'initial',
             }),
-        ]),
+        }),
         themeRefs,
         themeDecls,
         ...restThemes,
@@ -107,29 +107,29 @@ export const usesThemeVariant = (factory, options) => {
 /**
  * Uses toggleable mildification.
  * @param factory Customize the callback to create mildification definitions for each toggle state.
- * @returns A `[Factory<StyleCollection>, ReadonlyRefs, ReadonlyDecls]` represents toggleable mildification definitions.
+ * @returns A `[Factory<Rule>, ReadonlyRefs, ReadonlyDecls]` represents toggleable mildification definitions.
  */
 export const usesMildVariant = (factory) => {
     // dependencies:
     const [mild, mildRefs, mildDecls, ...restMild] = basicUsesMildVariant(factory);
     const [, themeRefs] = usesThemeVariant();
     return [
-        () => composition([
-            imports([
+        () => style({
+            ...imports([
                 mild(),
             ]),
-            vars({
+            ...vars({
                 // delete unused imported vars:
                 [mildDecls.foregFn]: null,
             }),
-            vars({
+            ...vars({
                 [mildDecls.backgFn]: fallbacks(
                 // themeRefs.backgMildImpt,  // first  priority
                 themeRefs.backgMild, // second priority
                 // themeRefs.backgMildCond,  // third  priority
                 cssProps.foreg),
             }),
-        ]),
+        }),
         mildRefs,
         mildDecls,
         ...restMild,
@@ -139,7 +139,7 @@ export const usesMildVariant = (factory) => {
 //#region foreg
 /**
  * Uses foreground color (icon color).
- * @returns A `[Factory<StyleCollection>, ReadonlyRefs, ReadonlyDecls]` represents foreground color definitions.
+ * @returns A `[Factory<Rule>, ReadonlyRefs, ReadonlyDecls]` represents foreground color definitions.
  */
 export const usesForeg = (foregOverwrite) => {
     // dependencies:
@@ -147,15 +147,15 @@ export const usesForeg = (foregOverwrite) => {
     const [, themeRefs] = usesThemeVariant();
     const [, mildRefs] = usesMildVariant();
     return [
-        () => foregOverwrite ? composition([
-            vars({
+        () => foregOverwrite ? style({
+            ...vars({
                 [foregDecls.foreg]: ((foregOverwrite !== foregRefs.foreg) ? foregOverwrite : null),
             }),
-        ]) : composition([
-            imports([
+        }) : style({
+            ...imports([
                 foreg(),
             ]),
-            vars({
+            ...vars({
                 [foregDecls.foregFn]: fallbacks(
                 // themeRefs.backgImpt,  // first  priority
                 themeRefs.backg, // second priority
@@ -166,7 +166,7 @@ export const usesForeg = (foregOverwrite) => {
                 mildRefs.backgTg, // toggle mild     (if `usesMildVariant()` applied)
                 foregRefs.foregFn),
             }),
-        ]),
+        }),
         foregRefs,
         foregDecls,
         ...restForeg,
@@ -175,32 +175,32 @@ export const usesForeg = (foregOverwrite) => {
 const [iconColorRefs, iconColorDecls] = createCssVar();
 /**
  * Uses icon color.
- * @returns A `[Factory<StyleCollection>, ReadonlyRefs, ReadonlyDecls]` represents icon color definitions.
+ * @returns A `[Factory<Rule>, ReadonlyRefs, ReadonlyDecls]` represents icon color definitions.
  */
 export const usesIconColor = () => {
     // dependencies:
     const [, outlinedRefs] = usesOutlinedVariant();
     const [, foregRefs] = usesForeg();
     return [
-        () => composition([
-            vars({
+        () => style({
+            ...vars({
                 [iconColorDecls.iconCol]: fallbacks(outlinedRefs.foregTg, // toggle outlined (if `usesOutlinedVariant()` applied)
                 iconColorRefs.iconColMildTg, // toggle mild     (if `usesMildVariant()` applied)
                 foregRefs.foregFn),
             }),
-            variants([
-                notMild([
-                    vars({
+            ...variants([
+                notMild({
+                    ...vars({
                         [iconColorDecls.iconColMildTg]: 'initial',
                     }),
-                ]),
-                isMild([
-                    vars({
+                }),
+                isMild({
+                    ...vars({
                         [iconColorDecls.iconColMildTg]: outlinedRefs.foregFn,
                     }),
-                ]),
+                }),
             ]),
-        ]),
+        }),
         iconColorRefs,
         iconColorDecls,
     ];
@@ -250,12 +250,12 @@ export const usesIconLayout = () => {
     // dependencies:
     // colors:
     const [foreg, foregRefs] = usesForeg();
-    return composition([
-        imports([
+    return style({
+        ...imports([
             // colors:
             foreg(),
         ]),
-        layout({
+        ...style({
             // layouts:
             display: 'inline-flex',
             flexDirection: 'row',
@@ -265,97 +265,89 @@ export const usesIconLayout = () => {
             // positions:
             verticalAlign: 'baseline',
             // children:
-            ...children('::before', [
-                imports([
+            ...children('::before', {
+                ...imports([
                     fillTextLineHeightLayout(),
                 ]),
-            ]),
+            }),
             // customize:
             ...usesGeneralProps(cssProps),
             // foregrounds:
             foreg: foregRefs.foreg,
         }),
-    ]);
+    });
 };
 export const usesIconFontLayout = (img) => {
-    return composition([
-        rules([
-            // load a custom font:
-            fontFace([
-                imports([
-                    config.font.style, // define the font's properties
-                ]),
-                layout({
-                    src: config.font.files.map((file) => `url("${concatUrl(config.font.path, file)}") ${formatOf(file)}`).join(','),
-                }),
+    return style({
+        // load a custom font:
+        ...fontFace({
+            ...imports([
+                config.font.style, // define the font's properties
             ]),
-        ]),
-        layout({
-            ...children('::after', [
-                imports([
-                    // use the loaded custom font:
-                    config.font.style, // apply the defined font's properties
-                ]),
-                layout({
-                    // layouts:
-                    content: img ?? iconRefs.img,
-                    display: 'inline',
-                    // foregrounds:
-                    foreg: 'currentColor',
-                    // backgrounds:
-                    backg: 'transparent',
-                    // sizes:
-                    fontSize: cssProps.size,
-                    overflowY: 'hidden',
-                    // accessibilities:
-                    userSelect: 'none',
-                    // typos:
-                    lineHeight: 1,
-                    textTransform: 'none',
-                    letterSpacing: 'normal',
-                    wordWrap: 'normal',
-                    whiteSpace: 'nowrap',
-                    direction: 'ltr',
-                    //#region turn on available browser features
-                    '-webkit-font-smoothing': 'antialiased',
-                    'textRendering': 'optimizeLegibility',
-                    '-moz-osx-font-smoothing': 'grayscale',
-                    fontFeatureSettings: 'liga', // support for IE
-                    //#endregion turn on available browser features
-                }),
-            ]),
+            ...style({
+                src: config.font.files.map((file) => `url("${concatUrl(config.font.path, file)}") ${formatOf(file)}`).join(','),
+            }),
         }),
-    ]);
+        ...children('::after', {
+            ...imports([
+                // use the loaded custom font:
+                config.font.style, // apply the defined font's properties
+            ]),
+            ...style({
+                // layouts:
+                content: img ?? iconRefs.img,
+                display: 'inline',
+                // foregrounds:
+                foreg: 'currentColor',
+                // backgrounds:
+                backg: 'transparent',
+                // sizes:
+                fontSize: cssProps.size,
+                overflowY: 'hidden',
+                // accessibilities:
+                userSelect: 'none',
+                // typos:
+                lineHeight: 1,
+                textTransform: 'none',
+                letterSpacing: 'normal',
+                wordWrap: 'normal',
+                whiteSpace: 'nowrap',
+                direction: 'ltr',
+                //#region turn on available browser features
+                '-webkit-font-smoothing': 'antialiased',
+                'textRendering': 'optimizeLegibility',
+                '-moz-osx-font-smoothing': 'grayscale',
+                fontFeatureSettings: 'liga', // support for IE
+                //#endregion turn on available browser features
+            }),
+        }),
+    });
 };
 export const usesIconImageLayout = (img) => {
-    return composition([
-        layout({
-            // backgrounds:
-            backg: 'currentColor',
+    return style({
+        // backgrounds:
+        backg: 'currentColor',
+        // sizes:
+        // a dummy element, for making the image's width
+        ...children('img', {
+            // layouts:
+            display: 'inline-block',
+            // appearances:
+            visibility: 'hidden',
             // sizes:
-            // a dummy element, for making the image's width
-            ...children('img', [
-                layout({
-                    // layouts:
-                    display: 'inline-block',
-                    // appearances:
-                    visibility: 'hidden',
-                    // sizes:
-                    blockSize: cssProps.size,
-                    inlineSize: 'auto',
-                    // transition:
-                    transition: 'inherit',
-                    // accessibilities:
-                    userSelect: 'none', // disable selecting icon's img
-                }),
-            ]),
-            // image masking:
-            maskSize: 'contain',
-            maskRepeat: 'no-repeat',
-            maskPosition: 'center',
-            maskImage: img ?? iconRefs.img, // set icon's image
+            blockSize: cssProps.size,
+            inlineSize: 'auto',
+            // transition:
+            transition: 'inherit',
+            // accessibilities:
+            userSelect: 'none', // disable selecting icon's img
         }),
-    ]);
+        // image masking:
+        maskSize: 'contain',
+        maskRepeat: 'no-repeat',
+        maskPosition: 'center',
+        maskImage: img ?? iconRefs.img, // set icon's image
+    });
 };
 export const usesIconVariants = () => {
     // dependencies:
@@ -364,15 +356,15 @@ export const usesIconVariants = () => {
     // colors:
     const [themes] = usesThemeVariant();
     const [mild] = usesMildVariant();
-    return composition([
-        imports([
+    return style({
+        ...imports([
             // layouts:
             sizes(),
             // colors:
             themes(),
             mild(),
         ]),
-    ]);
+    });
 };
 export const usesIconImage = (img, foregOverwrite, sizeOverwrite) => {
     // dependencies:
@@ -380,43 +372,40 @@ export const usesIconImage = (img, foregOverwrite, sizeOverwrite) => {
     const [sizes] = sizeOverwrite ? usesSizeVariant(sizeOverwrite) : [null];
     // colors:
     const [foreg, foregRefs] = foregOverwrite ? usesForeg(foregOverwrite) : [null, null];
-    return composition([
-        imports([
+    return style({
+        ...imports([
             // layouts:
             usesIconImageLayout(img),
             sizes?.(),
             // colors:
             foreg?.(),
         ]),
-        (foregRefs ? layout({
+        ...(foregRefs ? style({
             // foregrounds:
             foreg: foregRefs.foreg, // foreg => color => currentColor => backg
-        }) : null),
-    ]);
+        }) : style({})),
+    });
 };
 export const useIconSheet = createUseSheet(() => [
-    mainComposition([
-        imports([
-            // layouts:
-            usesIconLayout(),
-            // variants:
-            usesIconVariants(),
-        ]),
-        variants([
-            rule('.font', [
-                imports([
-                    // layouts:
-                    usesIconFontLayout(),
-                ]),
+    mainComposition(imports([
+        // layouts:
+        usesIconLayout(),
+        // variants:
+        usesIconVariants(),
+    ]), variants([
+        rule('.font', {
+            ...imports([
+                // layouts:
+                usesIconFontLayout(),
             ]),
-            rule('.img', [
-                imports([
-                    // layouts:
-                    usesIconImageLayout(),
-                ]),
+        }),
+        rule('.img', {
+            ...imports([
+                // layouts:
+                usesIconImageLayout(),
             ]),
-        ]),
-    ]),
+        }),
+    ])),
 ], /*sheetId :*/ 'oqfct2z8qv'); // an unique salt for SSR support, ensures the server-side & client-side have the same generated class names
 export const useIcon = (props) => {
     return useMemo(() => {
@@ -491,14 +480,12 @@ export const config = {
         /**
          * The css style of icon-font to be loaded.
          */
-        style: composition([
-            layout({
-                fontFamily: '"Material Icons"',
-                fontWeight: 400,
-                fontStyle: 'normal',
-                textDecoration: 'none',
-            }),
-        ]),
+        style: style({
+            fontFamily: '"Material Icons"',
+            fontWeight: 400,
+            fontStyle: 'normal',
+            textDecoration: 'none',
+        }),
     },
     img: {
         /**

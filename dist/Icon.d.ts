@@ -1,26 +1,25 @@
 import { default as React } from 'react';
-import type { Factory } from '@cssfn/types';
 import type { Cust } from '@cssfn/css-types';
 import { StyleCollection } from '@cssfn/cssfn';
 import { ElementProps } from '@nodestrap/element';
 import { ThemeName, ThemeVariant, MildVariant } from '@nodestrap/basic';
 import fontItems from './Icon-font-material.js';
 export declare type SizeName = 'sm' | 'nm' | 'md' | 'lg' | '1em' | (string & {});
-export declare const isSize: (sizeName: SizeName, styles: StyleCollection) => import("@cssfn/cssfn").RuleEntry;
+export declare const isSize: (sizeName: SizeName, styles: StyleCollection) => import("@cssfn/cssfn").Rule;
 /**
  * Uses basic sizes.
  * For example: `sm`, `lg`.
  * @param factory Customize the callback to create sizing definitions for each size in `options`.
  * @param options Customize the size options.
- * @returns A `[Factory<StyleCollection>, ReadonlyRefs, ReadonlyDecls]` represents sizing definitions for each size in `options`.
+ * @returns A `[Factory<Rule>, ReadonlyRefs, ReadonlyDecls]` represents sizing definitions for each size in `options`.
  */
-export declare const usesSizeVariant: (sizeOverwrite?: Cust.Ref | undefined, factory?: (sizeName: SizeName) => StyleCollection, options?: SizeName[]) => readonly [() => StyleCollection, import("@cssfn/css-var").ReadonlyRefs<import("@nodestrap/basic").SizeVars>, import("@cssfn/css-var").ReadonlyDecls<import("@nodestrap/basic").SizeVars>];
+export declare const usesSizeVariant: (sizeOverwrite?: Cust.Ref | undefined, factory?: (sizeName: SizeName) => import("@cssfn/cssfn").Rule, options?: SizeName[]) => readonly [() => import("@cssfn/cssfn").Rule, import("@cssfn/css-var").ReadonlyRefs<import("@nodestrap/basic").SizeVars>, import("@cssfn/css-var").ReadonlyDecls<import("@nodestrap/basic").SizeVars>];
 /**
  * Creates sizing definitions for the given `sizeName`.
  * @param sizeName The given size name written in camel case.
- * @returns A `StyleCollection` represents sizing definitions for the given `sizeName`.
+ * @returns A `Rule` represents sizing definitions for the given `sizeName`.
  */
-export declare const sizeOf: (sizeName: SizeName) => StyleCollection;
+export declare const sizeOf: (sizeName: SizeName) => import("@cssfn/cssfn").Rule;
 /**
  * Gets the all available size options.
  * @returns A `SizeName[]` represents the all available size options.
@@ -37,20 +36,20 @@ export declare const useSizeVariant: (props: SizeVariant) => {
  * For example: `primary`, `secondary`, `danger`, `success`, etc.
  * @param factory Customize the callback to create color definitions for each color in `options`.
  * @param options Customize the color options.
- * @returns A `[Factory<StyleCollection>, ReadonlyRefs, ReadonlyDecls]` represents color definitions for each color in `options`.
+ * @returns A `[Factory<Rule>, ReadonlyRefs, ReadonlyDecls]` represents color definitions for each color in `options`.
  */
-export declare const usesThemeVariant: (factory?: Factory<StyleCollection> | undefined, options?: ThemeName[] | undefined) => readonly [() => StyleCollection, import("@cssfn/css-var").ReadonlyRefs<import("@nodestrap/basic").ThemeVars>, import("@cssfn/css-var").ReadonlyDecls<import("@nodestrap/basic").ThemeVars>];
+export declare const usesThemeVariant: (factory?: ((themeName: ThemeName) => StyleCollection) | undefined, options?: ThemeName[] | undefined) => readonly [() => import("@cssfn/cssfn").Rule, import("@cssfn/css-var").ReadonlyRefs<import("@nodestrap/basic").ThemeVars>, import("@cssfn/css-var").ReadonlyDecls<import("@nodestrap/basic").ThemeVars>];
 /**
  * Uses toggleable mildification.
  * @param factory Customize the callback to create mildification definitions for each toggle state.
- * @returns A `[Factory<StyleCollection>, ReadonlyRefs, ReadonlyDecls]` represents toggleable mildification definitions.
+ * @returns A `[Factory<Rule>, ReadonlyRefs, ReadonlyDecls]` represents toggleable mildification definitions.
  */
-export declare const usesMildVariant: (factory?: Factory<StyleCollection> | undefined) => readonly [() => StyleCollection, import("@cssfn/css-var").ReadonlyRefs<import("@nodestrap/basic").MildVars>, import("@cssfn/css-var").ReadonlyDecls<import("@nodestrap/basic").MildVars>];
+export declare const usesMildVariant: (factory?: ((toggle?: boolean | null | undefined) => StyleCollection) | undefined) => readonly [() => import("@cssfn/cssfn").Rule, import("@cssfn/css-var").ReadonlyRefs<import("@nodestrap/basic").MildVars>, import("@cssfn/css-var").ReadonlyDecls<import("@nodestrap/basic").MildVars>];
 /**
  * Uses foreground color (icon color).
- * @returns A `[Factory<StyleCollection>, ReadonlyRefs, ReadonlyDecls]` represents foreground color definitions.
+ * @returns A `[Factory<Rule>, ReadonlyRefs, ReadonlyDecls]` represents foreground color definitions.
  */
-export declare const usesForeg: (foregOverwrite?: Cust.Ref | undefined) => readonly [() => StyleCollection, import("@cssfn/css-var").ReadonlyRefs<import("@nodestrap/basic").ForegVars>, import("@cssfn/css-var").ReadonlyDecls<import("@nodestrap/basic").ForegVars>];
+export declare const usesForeg: (foregOverwrite?: Cust.Ref | undefined) => readonly [() => import("@cssfn/cssfn").Rule, import("@cssfn/css-var").ReadonlyRefs<import("@nodestrap/basic").ForegVars>, import("@cssfn/css-var").ReadonlyDecls<import("@nodestrap/basic").ForegVars>];
 export interface IconColorVars {
     /**
      * final icon color.
@@ -63,9 +62,9 @@ export interface IconColorVars {
 }
 /**
  * Uses icon color.
- * @returns A `[Factory<StyleCollection>, ReadonlyRefs, ReadonlyDecls]` represents icon color definitions.
+ * @returns A `[Factory<Rule>, ReadonlyRefs, ReadonlyDecls]` represents icon color definitions.
  */
-export declare const usesIconColor: () => readonly [() => StyleCollection, import("@cssfn/css-var").ReadonlyRefs<IconColorVars>, import("@cssfn/css-var").ReadonlyDecls<IconColorVars>];
+export declare const usesIconColor: () => readonly [() => import("@cssfn/cssfn").Rule, import("@cssfn/css-var").ReadonlyRefs<IconColorVars>, import("@cssfn/css-var").ReadonlyDecls<IconColorVars>];
 /**
  * Merges two specified url to final url.
  * @param base The relative or absolute base url.
@@ -90,12 +89,12 @@ export interface IconVars {
      */
     img: any;
 }
-export declare const usesIconLayout: () => StyleCollection;
-export declare const usesIconFontLayout: (img?: Cust.Ref | undefined) => StyleCollection;
-export declare const usesIconImageLayout: (img?: Cust.Ref | undefined) => StyleCollection;
-export declare const usesIconVariants: () => StyleCollection;
-export declare const usesIconImage: (img: Cust.Ref, foregOverwrite?: Cust.Ref | undefined, sizeOverwrite?: Cust.Ref | undefined) => StyleCollection;
-export declare const useIconSheet: Factory<import("jss").Classes<"main">>;
+export declare const usesIconLayout: () => import("@cssfn/cssfn").Rule;
+export declare const usesIconFontLayout: (img?: Cust.Ref | undefined) => import("@cssfn/cssfn").Rule;
+export declare const usesIconImageLayout: (img?: Cust.Ref | undefined) => import("@cssfn/cssfn").Rule;
+export declare const usesIconVariants: () => import("@cssfn/cssfn").Rule;
+export declare const usesIconImage: (img: Cust.Ref, foregOverwrite?: Cust.Ref | undefined, sizeOverwrite?: Cust.Ref | undefined) => import("@cssfn/cssfn").Rule;
+export declare const useIconSheet: import("@cssfn/types").Factory<import("jss").Classes<"main">>;
 export declare const useIcon: <TElement extends HTMLElement = HTMLElement>(props: IconProps<TElement>) => {
     class: string | null;
     style: {
@@ -150,7 +149,7 @@ export declare const config: {
         /**
          * The css style of icon-font to be loaded.
          */
-        style: StyleCollection;
+        style: import("@cssfn/cssfn").Rule;
     };
     img: {
         /**
