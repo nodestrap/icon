@@ -317,8 +317,10 @@ export const usesIconFontLayout = (img) => {
                 '-webkit-font-smoothing': 'antialiased',
                 'textRendering': 'optimizeLegibility',
                 '-moz-osx-font-smoothing': 'grayscale',
-                fontFeatureSettings: 'liga', // support for IE
+                fontFeatureSettings: 'liga',
                 //#endregion turn on available browser features
+                // transition:
+                transition: 'inherit', // inherit transition for smooth sizing changes
             }),
         }),
     });
