@@ -264,6 +264,8 @@ export const usesIconLayout = () => {
             flexWrap: 'nowrap',
             // positions:
             verticalAlign: 'baseline',
+            // sizes:
+            blockSize: cssProps.size,
             // children:
             ...children('::before', {
                 ...imports([
@@ -337,7 +339,7 @@ export const usesIconImageLayout = (img) => {
             // appearances:
             visibility: 'hidden',
             // sizes:
-            blockSize: cssProps.size,
+            blockSize: '100%',
             inlineSize: 'auto',
             // transition:
             transition: 'inherit',
