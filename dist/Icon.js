@@ -223,7 +223,7 @@ export const concatUrl = (base, target) => {
     const targetUrl = new URL(target, baseUrl);
     const result = targetUrl.href;
     if (result.startsWith(dummyUrl.origin))
-        return result.substr(dummyUrl.origin.length);
+        return result.slice(dummyUrl.origin.length);
     return result;
 };
 /**
@@ -312,7 +312,7 @@ export const usesIconFontLayout = (img) => {
                 lineHeight: 1,
                 textTransform: 'none',
                 letterSpacing: 'normal',
-                wordWrap: 'normal',
+                overflowWrap: 'normal',
                 whiteSpace: 'nowrap',
                 direction: 'ltr',
                 //#region turn on available browser features
